@@ -191,7 +191,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     const SizedBox(width: 12),
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,  // এখানে ঠিক করা হয়েছে
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(item.title, maxLines: 1, overflow: TextOverflow.ellipsis),
