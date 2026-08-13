@@ -26,8 +26,11 @@ jobs:
 
     - name: Generate Standard Flutter App
       run: |
+        # ১. টেম্পোরারি অ্যাপ তৈরি
         flutter create --org com.example temp_app
-        cp -r temp_app/android .
+        # ২. অ্যান্ড্রয়েড নেটিভ ফোল্ডারগুলো কপি করা
+        cp -rn temp_app/android .
+        # ৩. টেম্প ফোল্ডার রিমুভ করা
         rm -rf temp_app
 
     - name: Get dependencies
