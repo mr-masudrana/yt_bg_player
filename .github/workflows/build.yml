@@ -24,14 +24,15 @@ jobs:
         flutter-version: '3.19.6'
         channel: 'stable'
 
-    - name: Generate Standard Flutter App
+    - name: Setup Flutter Project Architecture
       run: |
-        # ১. টেম্পোরারি অ্যাপ তৈরি
-        flutter create --org com.example temp_app
-        # ২. অ্যান্ড্রয়েড নেটিভ ফোল্ডারগুলো কপি করা
-        cp -rn temp_app/android .
-        # ৩. টেম্প ফোল্ডার রিমুভ করা
-        rm -rf temp_app
+        # ১. অস্থায়ী একটি সম্পূর্ণ ফ্ল্যাটার প্রজেক্ট তৈরি
+        flutter create --org com.example temp_project
+        # ২. অ্যান্ডয়েড ও অন্যান্য প্রয়োজনীয় কনফিগারেশন কপি করা
+        cp -rn temp_project/android .
+        # ৩. যদি lib ফোল্ডার না থাকে তবে কপি করবে
+        [ -d "lib" ] || cp -r temp_project/lib .
+        rm -rf temp_project
 
     - name: Get dependencies
       run: flutter pub get
