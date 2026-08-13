@@ -7,16 +7,25 @@ late MyAudioHandler _audioHandler;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  _audioHandler = await AudioService.init(
-    builder: () => MyAudioHandler(),
-    config: const AudioServiceConfig(
-      androidNotificationChannelId: 'com.yt.bg.player.audio',
-      androidNotificationChannelName: 'YouTube Background Audio',
-      androidNotificationOngoing: true,
-    ),
-  );
+  
+  // AudioService ইনিশিয়ালাইজ করার সুরক্ষিত নিয়ম
+  try {
+    _audioHandler = await AudioService.init(
+      builder: () => MyAudioHandler(),
+      config: const AudioServiceConfig(
+        androidNotificationChannelId: 'com.yt.bg.player.audio',
+        androidNotificationChannelName: 'YouTube Background Audio',
+        androidNotificationOngoing: true,
+        androidStopForegroundOnPause: true,
+      ),
+    );
+  } catch (e) {
+    debugPrint("AudioService error: $e");
+  }
+
   runApp(const YTPlayerApp());
 }
+
 
 class MyAudioHandler extends BaseAudioHandler {
   final _player = AudioPlayer();
